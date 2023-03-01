@@ -1,6 +1,5 @@
-import { Request, Response } from 'express';
-import { AuthUserService } from '../../services/user/AuthUserService';
-
+import { Request, Response } from "express";
+import { AuthUserService } from "../../services/user/AuthUserService";
 
 class AuthUserController {
   async handle(req: Request, res: Response) {
@@ -9,11 +8,12 @@ class AuthUserController {
     const authUserService = new AuthUserService();
 
     const auth = await authUserService.execute({
-      email, 
-      password
-    })
+      email,
+      password,
+    });
 
     return res.json(auth);
   }
-
 }
+
+export { AuthUserController };
