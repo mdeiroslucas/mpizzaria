@@ -18,7 +18,7 @@ app.use((err: Error, request: Request, response: Response) => {
 
   return response.status(500).json({
     status: 'error',
-    message: 'Internal server error.'
+    message: 'Alguma coisa deu errada.'
   })
 })
 

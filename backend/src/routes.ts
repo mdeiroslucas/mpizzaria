@@ -10,7 +10,7 @@ router.get('/teste', (req: Request, res: Response) => {
 })
 
 router.post('/users', new CreateUserController().handle)
-router.post('/sessoin', new AuthUserController().handle)
+router.post('/session', new AuthUserController().handle)
 
 
 router.get('/teste2', (req: Request, res: Response) => {
