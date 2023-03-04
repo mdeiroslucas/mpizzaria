@@ -24,11 +24,14 @@ export function isAuthenticated(
   }
 
   try {
-    //validar esse token
+    //validate the token
     const { sub } = verify(
       token, 
       process.env.JWT_SECRET as string
     ) as PayLoad;
+
+    //recover the token id and put it inside of a variable user_id
+    req.user_id = sub;
 
     return next();
   } catch (error) {
