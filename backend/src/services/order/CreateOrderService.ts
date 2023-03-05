@@ -1,4 +1,3 @@
-import { Order } from "@prisma/client";
 import prismaClient from "../../prisma";
 
 interface OrderRequest {
@@ -13,7 +12,7 @@ class CreateOrderService {
         table: table,
         name: name
       }
-    })
+    });
 
     return order;
   }
