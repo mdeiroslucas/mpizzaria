@@ -1,4 +1,4 @@
-import {Router,Request, Response } from 'express';
+import {Router, Request, Response } from 'express';
 import  multer from 'multer';
 
 import { CreateUserController } from './controllers/user/CreateUserController';
@@ -15,6 +15,7 @@ import { CreateOrderController } from './controllers/order/CreateOrderController
 import { RemoveOrderController } from './controllers/order/RemoveOrderController';
 import { AddItemContoller } from './controllers/order/AddItemController';
 import { RemoveItemController } from './controllers/order/RemoveItemController';
+import { SendOrderController } from './controllers/order/SendOrderController';
 
 
 const router = Router();
@@ -40,7 +41,10 @@ router.get('/category/product', isAuthenticated, new ListByCategoryController().
 //Order routers
 router.post('/order', isAuthenticated, new CreateOrderController().handle);
 router.delete('/order', isAuthenticated, new RemoveOrderController().handle);
+router.put('/order/send', isAuthenticated, new SendOrderController().handle);
 
+//Order Items
 router.post('/order/add', isAuthenticated, new AddItemContoller().handle);
 router.delete('/order/remove', isAuthenticated, new RemoveItemController().handle);
+
 export {router}; 
