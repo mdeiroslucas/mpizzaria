@@ -1,21 +1,20 @@
-import {Request, Response} from 'express';
-import { AddItemService } from '../../services/order/AddItemService';
-
+import { Request, Response } from "express";
+import { AddItemService } from "../../services/order/AddItemService";
 
 class AddItemContoller {
-  async handle(req: Request, res: Response){
-    const {order_id, product_id, amount} = req.body;
+  async handle(req: Request, res: Response) {
+    const { order_id, product_id, amount } = req.body;
 
     const addItem = new AddItemService();
 
     const order = await addItem.execute({
       order_id,
       product_id,
-      amount
+      amount,
     });
 
     return res.json(order);
   }
 }
 
-export {AddItemContoller}
+export { AddItemContoller };
