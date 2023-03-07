@@ -2,16 +2,32 @@ import { Inter } from 'next/font/google'
 import styles from '../../styles/Home.module.scss';
 import Head from 'next/head';
 
-const inter = Inter({ subsets: ['latin'] })
+import logoImg from '../../public/logo.svg';
+
+import {Input} from '../components/ui/input';
+// const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
   return (
     <>
       <Head>
-        <title>Mpizzaria - Faça seu Login</title>
+        <title>Mpizza - Faça seu Login</title>
       </Head>
-      <div>
-          <h1>MPizzaria</h1>
+      <div className={styles.containerCenter}>
+          {/* <Image src={logoImg} alt="Logo MPizzaria"/> */}
+      </div>
+
+      <div className={styles.login}>
+        <form action="">
+          <Input
+            placeholder='Digite o seu email'
+            type='text'        
+          />
+          <Input
+            placeholder='Digite sua senha'
+            type='password'
+          />
+        </form>
       </div>
     </>
   )
