@@ -6,11 +6,26 @@ import logoImg from '../../public/mpizzaria.png';
 
 import Link from 'next/link';
 
+import { AuthContext } from '../contexts/AuthContext';
+
 import {Input} from '../components/ui/input';
 import {Button} from '../components/ui/button';
+import { FormEvent, useContext } from 'react';
 // const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
+  const {signIn} = useContext(AuthContext)
+
+  async function handleLogin(event: FormEvent){
+    event.preventDefault();
+
+    let data = {
+      email: 'alguem@',
+      password: '123213'
+    };
+
+    await signIn(data);
+  }
   return (
     <>
       <Head>
@@ -21,7 +36,8 @@ export default function Home() {
 
 
       <div className={styles.login}>
-        <form action="">
+      <h1>MPIZZARIA</h1>
+        <form onSubmit={handleLogin}>
           <Input
             placeholder='Digite o seu email'
             type='text'        
