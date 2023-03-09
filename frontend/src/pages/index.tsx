@@ -5,6 +5,7 @@ import Head from 'next/head';
 import logoImg from '../../public/logo.svg';
 
 import {Input} from '../components/ui/input';
+import {Button} from '../components/ui/button';
 // const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
@@ -26,6 +27,9 @@ export default function Home() {
           <Input
             placeholder='Digite sua senha'
             type='password'
+          />
+
+          <Button
           />
         </form>
       </div>
