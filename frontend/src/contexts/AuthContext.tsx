@@ -1,12 +1,17 @@
 import { createContext, ReactNode, useState, useMemo  } from "react";
-import {destroyCookie} from 'nookies'
+
+import { api } from "../services/apiClient";
+
+import {destroyCookie, setCookie, parseCookies} from 'nookies'
 import Router from "next/router";
+
 
 type AuthContextData = {
   user?: UserProps;
   isAuthenticated: boolean;
   signIn: (credentials: SignInProps) => Promise<void>;
   signOut: () => void;
+  signUp: (credentials: SignUpProps) => Promise<void>;
 }
 
 type UserProps = {
@@ -16,6 +21,12 @@ type UserProps = {
 }
 
 type SignInProps = {
+  email: string;
+  password: string;
+}
+
+type SignUpProps = {
+  name: string;
   email: string;
   password: string;
 }
@@ -41,16 +52,54 @@ export function AuthProvider({ children }: AuthProviderProps) {
   const isAuthenticated = !!user;
 
   async function signIn({email, password}: SignInProps ) {
-    console.log('dados ', password);
-    alert('funcionou ' + email)
+    try {
+      const response = await api.post('/session', {
+        email,
+        password
+      })
+
+      const {id, name, token } = response.data;
+
+      setCookie(undefined, '@nextauth.token', token, {
+        maxAge: 60 * 60 * 24 * 30, //1 month
+        path: "/" //all paths will have access to the token
+      })
+      console.log(response.data)
+      setUser({
+        id,
+        name,
+        email
+      })
+
+      api.defaults.headers['Authorization'] = `Bearer ${token}`
+
+      //redirect the user to /dashboard
+      Router.push('/dashboard')
+
+    } catch (error) {
+      console.log('erro, não funcionou', error)
+    }
   }
 
-  // const value = useMemo(() => {
-  //   return {user, isAuthenticated, signIn};
-  // }, [user, isAuthenticated, signIn]);
+  async function signUp({name, email, password}: SignUpProps){
+    try {
+      console.log(name, email, password);
+      const response = await api.post('/users', {
+        name,
+        email,
+        password
+      })
+      
+      console.log('cadastrado com sucesso');
+
+      Router.push('/');
+    } catch (error) {
+      console.log('erro ao cadastrar ', error)
+    }
+  }
 
   return (
-    <AuthContext.Provider value={{user, isAuthenticated, signIn, signOut}}>
+    <AuthContext.Provider value={{user, isAuthenticated, signIn, signOut, signUp}}>
       {children}
     </AuthContext.Provider>
   )
