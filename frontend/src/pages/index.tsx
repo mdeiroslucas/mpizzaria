@@ -4,6 +4,8 @@ import Head from 'next/head';
 import Image from 'next/image';
 import logoImg from '../../public/mpizzaria.png';
 
+import {toast} from 'react-toastify'
+
 import Link from 'next/link';
 
 import { AuthContext } from '../contexts/AuthContext';
@@ -25,7 +27,7 @@ export default function Home() {
     event.preventDefault();
 
     if (email === '' || password ==='') {
-      alert('preencha os dados')
+      toast.error("Preencha todos os campos");
       return;
     }
 
