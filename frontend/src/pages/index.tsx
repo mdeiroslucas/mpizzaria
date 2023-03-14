@@ -13,6 +13,9 @@ import { AuthContext } from '../contexts/AuthContext';
 import {Input} from '../components/ui/input';
 import {Button} from '../components/ui/button';
 import { FormEvent, useContext, useState } from 'react';
+import { canSSRGuest } from './utils/canSSRGuest';
+
+ 
 // const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
@@ -83,3 +86,9 @@ export default function Home() {
     </>
   )
 }
+
+export const getServerSideProps = canSSRGuest(async (ctx) => {
+  return {
+    props:{}
+  }
+})
