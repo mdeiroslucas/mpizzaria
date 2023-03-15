@@ -23,7 +23,7 @@ export function Header() {
             Categoria
           </Link>
 
-          <Link href="/category">
+          <Link href="/product">
             Cardápio
           </Link>
           <button onClick={signOut}>
