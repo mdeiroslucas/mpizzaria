@@ -1,0 +1,62 @@
+.container {
+  max-width: 720px;
+  margin: 4em auto;
+  padding: 0 2em;
+
+  display: flex;
+  flex-direction: column;
+
+
+  .containerHeader {
+    display: flex;
+    flex-direction: row;
+
+    h1 {
+      color: white;
+    }
+
+    button {
+      background: transparent;
+      border: 0;
+      margin-left: 1em;
+    }
+
+  }
+
+  .listOrders {
+    display: flex;
+    flex-direction: column;
+    margin: 1em 0;
+
+    .orderItem {
+      display: flex;
+      flex-direction: row;
+      background-color: var(--dark-900);
+      margin-bottom: 1em;
+      align-items: center;
+      border-radius: 0.3em;
+      height: 60px;
+
+      button {
+        background: transparent;
+        border: 0;
+        font-size: 1.2rem;
+        color: var(--white);
+        height: 60px;
+        display: flex;
+        align-items: center;
+
+        .tag {
+          width: 9px;
+          background-color: var(--green-900);
+          border-radius: 6px 0 0 6px;
+          height: 100%;
+        }
+
+        span {
+          margin-left: 1em;
+        }
+      }
+    }
+  }
+}

@@ -71,7 +71,7 @@ export default function Product({ categoryList }: CategoryProps) {
       data.append('name', name);
       data.append('price', price);
       data.append('description', description);
-      data.append('file', imageAvatar as File);
+      data.append('file', imageAvatar);
       data.append('category_id', categories[categorySelected].id);
 
       const apiClient = setupAPIClient();
