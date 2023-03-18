@@ -1,11 +1,35 @@
 import Head from "next/head"
 import { canSSRAuth } from "../utils/canSSRAuth"
 import styles from './styles.module.scss';
+import { useState } from "react";
 
 import { Header } from '../../components/Header'
 import { FiRefreshCcw } from "react-icons/fi";
 
-export default function Dashboard(){
+import { setupAPIClient } from "@/src/services/api";
+
+import Modal from 'react-modal';
+
+type OrderProps = {
+  id: string;
+  table: string | number;
+  status: boolean;
+  draft: boolean;
+  name: string | null;
+}
+
+interface HomeProps {
+  orders: OrderProps[];
+}
+
+export default function Dashboard({ orders }: HomeProps) {
+
+  const [orderList, setOrderList] = useState<OrderProps[]>(orders || []);
+
+  function handleOpenModalView(id: string){
+    alert('id clicado :' + id);
+  }
+
   return (
     <>
       <Head>
@@ -18,18 +42,19 @@ export default function Dashboard(){
           <div className={styles.containerHeader}>
             <h1>Últimos pedidos</h1>
             <button>
-              <FiRefreshCcw size={25} color='#3fffa3'/>
+              <FiRefreshCcw size={25} color='#3fffa3' />
             </button>
           </div>
 
           <article className={styles.listOrders}>
-           
-           <section className={styles.orderItem}>
-              <button>
+            {orderList.map( item => (
+            <section key={item.id} className={styles.orderItem}>
+              <button onClick= { () => handleOpenModalView(item.id) }>
                 <div className={styles.tag}></div>
-                <span>Mesa 30</span>
+                <span>Mesa {item.table}</span>
               </button>
-           </section>
+            </section>
+            ))}
 
           </article>
         </main>
@@ -38,8 +63,14 @@ export default function Dashboard(){
   )
 }
 
-export const getServerSideProps = canSSRAuth(async (ctx) =>{
+export const getServerSideProps = canSSRAuth(async (ctx) => {
+  const apiClient = setupAPIClient(ctx);
+
+  const response = await apiClient.get('/orders');
+
   return {
-    props:{}
+    props: {
+      orders: response.data || []
+    }
   }
 })

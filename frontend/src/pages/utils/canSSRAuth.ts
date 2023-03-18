@@ -22,6 +22,7 @@ export function canSSRAuth<P extends { [key: string]: any; }>(fn: GetServerSideP
     } catch (error) {
       if(error instanceof AuthTokenError) {
         destroyCookie(ctx, '@nextauth.token');
+        console.log('não destruido no ssrauth');
 
         return {
           redirect: {
