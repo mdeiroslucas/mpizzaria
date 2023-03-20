@@ -41,9 +41,10 @@ export function ModalOrder({ isOpen, onRequestClose, order }: ModalOrderProps) {
       </button>
 
       <div className={styles.contaainer}>
+
         <h2>Detalhes do pedido</h2>
         <span className={styles.table}>
-          Mesa: <strong>{order?[0].order.table}</strong>
+          Mesa: <strong>{order[0].order.table}</strong>
         </span>
 
         {order.map((item: OrderItemProps) => (

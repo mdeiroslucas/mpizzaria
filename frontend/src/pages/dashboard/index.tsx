@@ -34,13 +34,13 @@ export type OrderItemProps = {
     description: string;
     price: string;
     banner: string;
-  }
+  };
   order: {
     id: string;
     table: string | number;
     status: boolean;
     name: string | null;
-  }
+  };
 }
 
 export default function Dashboard({ orders }: HomeProps) {
