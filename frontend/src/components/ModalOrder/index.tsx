@@ -19,7 +19,7 @@ export function ModalOrder({ isOpen, onRequestClose, order }: ModalOrderProps) {
       left: '50%',
       right: 'Auto',
       padding: '30px',
-      // transform: 'translate(-50%, -50%)',
+      transform: 'translate(-50%, -50%)',
       backgroundColor: '#1d1d2e'
     }
   };
@@ -32,15 +32,15 @@ export function ModalOrder({ isOpen, onRequestClose, order }: ModalOrderProps) {
     >
 
       <button
-      type='button'
-      onClick={onRequestClose}
-      className='react-modal-close'
-      style={{background: 'transparent', border:0 }}
+        type='button'
+        onClick={onRequestClose}
+        className='react-modal-close'
+        style={{ background: 'transparent', border: 0 }}
       >
         <FiX size={45} color='#f34748' />
       </button>
 
-      <div className={styles.contaainer}>
+      <div className={styles.container}>
 
         <h2>Detalhes do pedido</h2>
         <span className={styles.table}>
@@ -53,6 +53,11 @@ export function ModalOrder({ isOpen, onRequestClose, order }: ModalOrderProps) {
             <span className={styles.description}>{item.product.description}</span>
           </section>
         ))}
+
+
+        <button className={styles.buttonOrder} onClick={() => { }}>
+          Concluir pedido
+        </button>
       </div>
 
     </Modal>
