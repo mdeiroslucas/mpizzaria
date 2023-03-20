@@ -28,7 +28,7 @@ export type OrderItemProps = {
   amount: number;
   order_id: string;
   product_id: string;
-  product:{
+  product: {
     id: string;
     name: string;
     description: string;
@@ -46,16 +46,16 @@ export type OrderItemProps = {
 export default function Dashboard({ orders }: HomeProps) {
 
   const [orderList, setOrderList] = useState<OrderProps[]>(orders || []);
-  
+
   const [modalItem, setModalItem] = useState<OrderItemProps[]>([]);
-  
+
   const [modalVisible, setModalVisible] = useState(false);
 
-  function handleCloseModal(){
+  function handleCloseModal() {
     setModalVisible(false);
   }
 
-  async function handleOpenModalView(id: string){
+  async function handleOpenModalView(id: string) {
 
     const apiCLient = setupAPIClient();
 
@@ -67,6 +67,26 @@ export default function Dashboard({ orders }: HomeProps) {
 
     setModalItem(response.data);
     setModalVisible(true);
+  }
+
+  async function handleFinishItem(id: string) {
+    const apiClient = setupAPIClient();
+    await apiClient.put('/order/finish', {
+      order_id: id,
+      })
+
+      const response = await apiClient.get('/orders');
+
+      setOrderList(response.data);
+
+      setModalVisible(false);
+  }
+
+  async function handleRefreshOrders(){
+    const apiClient = setupAPIClient();
+    const response = await apiClient.get('/orders');
+
+    setOrderList(response.data);
   }
 
   Modal.setAppElement('#__next');
@@ -82,19 +102,24 @@ export default function Dashboard({ orders }: HomeProps) {
         <main className={styles.container}>
           <div className={styles.containerHeader}>
             <h1>Últimos pedidos</h1>
-            <button>
+            <button onClick={handleRefreshOrders}>
               <FiRefreshCcw size={25} color='#3fffa3' />
             </button>
           </div>
 
           <article className={styles.listOrders}>
-            {orderList.map( item => (
-            <section key={item.id} className={styles.orderItem}>
-              <button onClick= { () => handleOpenModalView(item.id) }>
-                <div className={styles.tag}></div>
-                <span>Mesa {item.table}</span>
-              </button>
-            </section>
+
+            {orderList.length === 0 && (
+              <span className={styles.emptyList}>Nenhum pedido aberto.</span>
+            )}
+
+            {orderList.map(item => (
+              <section key={item.id} className={styles.orderItem}>
+                <button onClick={() => handleOpenModalView(item.id)}>
+                  <div className={styles.tag}></div>
+                  <span>Mesa {item.table}</span>
+                </button>
+              </section>
             ))}
 
 
@@ -106,6 +131,7 @@ export default function Dashboard({ orders }: HomeProps) {
             isOpen={modalVisible}
             onRequestClose={handleCloseModal}
             order={modalItem}
+            handleFinishOrder={handleFinishItem}
           />
         )}
       </div>
