@@ -2,6 +2,7 @@
   width: 620px;
   background-color: var(--dark-700);
   color: white;
+  margin-top: 3em;
 
   h2{
     margin: 1em 0;
@@ -18,19 +19,26 @@
   }
 }
 
+
+
 .description {
   margin-top: 0.5em;
+  margin-left: 1em;
   //if descriptionis at the end of the modal, break line
   word-break: break-all;
 }
 
 .buttonOrder{
+  display: flex;
+  margin: 0;
+  justify-content: flex-end;
   margin-top: 1.5em;
-  background-color: rgba(0,0,0, 40%);
+  background-color: rgba(0, 0, 0, 0.1);
   border: 0;
   padding: 0.5em 1em;
   border-radius: 0.2em;
   color: var(--green-900);
+  font-weight: 800;
 }
 
 .table {

@@ -36,7 +36,13 @@ export function ModalOrder({ isOpen, onRequestClose, order, handleFinishOrder }:
         type='button'
         onClick={onRequestClose}
         className='react-modal-close'
-        style={{ background: 'transparent', border: 0 }}
+        style={{ 
+          background: 'transparent', 
+          border: 0, 
+          position: 'fixed',
+          top: 20,
+          right: 20,
+      }}
       >
         <FiX size={45} color='#f34748' />
       </button>
